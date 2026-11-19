@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BHEESHMA MIND AI</title>
+<style>
+:root{--bg:#0d1017;--cd:#151a25;--ln:#232b3b;--tx:#e8ecf4;--mu:#8b95a8;--up:#2fc9a0;--dn:#f2557a;--ac:#eba33a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:12px 14px 4px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo{font:800 17px/1 Georgia,"Times New Roman",serif;letter-spacing:.06em;color:var(--ac)}
+.demo{font-size:11px;border:1px solid var(--dn);color:var(--dn);padding:2px 8px;border-radius:99px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 14px;border-bottom:1px solid var(--ln);position:sticky;top:0;background:var(--bg);z-index:5}
+nav button{flex:none;background:none;border:1px solid var(--ln);color:var(--mu);padding:6px 12px;border-radius:99px;font:inherit}
+nav button.on{background:var(--ac);color:#1a1205;border-color:var(--ac);font-weight:700}
+main{padding:14px;max-width:900px;margin:auto}
+h2{font:700 20px Georgia,serif;margin:0 0 10px}h3{font-size:14px;margin:14px 0 6px;color:var(--mu);font-weight:600}
+.c{background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:12px;margin-bottom:12px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.k{font-size:12px;color:var(--mu)}.v{font-size:17px;font-weight:700}
+.up{color:var(--up)}.dn{color:var(--dn)}.ac{color:var(--ac)}
+input,select,textarea{background:var(--bg);border:1px solid var(--ln);color:var(--tx);border-radius:8px;padding:9px;font:inherit;width:100%}
+.r{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.r>*{flex:1 1 120px}
+.b{background:var(--ac);color:#1a1205;border:0;border-radius:8px;padding:10px 14px;font:700 14px inherit;cursor:pointer}
+.b.s{background:var(--ln);color:var(--tx);padding:5px 9px;font-weight:500}
+.w{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:360px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--ln);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--mu);font-weight:500;font-size:12px}
+.sig{display:inline-block;padding:4px 14px;border-radius:8px;font:800 20px Georgia,serif}
+.BUY{background:var(--up);color:#06231b}.SELL{background:var(--dn);color:#2a0511}.WAIT{background:var(--ln);color:var(--ac)}
+.note{font-size:12px;color:var(--mu)}footer{padding:10px 14px 24px;font-size:11px;color:var(--mu);text-align:center}
+svg{width:100%;height:auto;display:block}
+@media(prefers-reduced-motion:no-preference){main>section{animation:f .25s}@keyframes f{from{opacity:0}}}
+</style></head><body>
+<header><div class="logo">BHEESHMA MIND AI</div><span class="demo">DEMO DATA</span></header>
+<nav id="nav"></nav><main id="m"></main>
+<footer id="ft"></footer>
+<script>
+const $=s=>document.querySelector(s);
+const ST={g(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const U=[["RELIANCE","Reliance Industries","India",1500,"₹"],["TCS","Tata Consultancy","India",3800,"₹"],["HDFCBANK","HDFC Bank","India",1650,"₹"],["INFY","Infosys","India",1500,"₹"],["TATAMOTORS","Tata Motors","India",950,"₹"],["NIFTY50","Nifty 50","India",22500,"₹"],["BANKNIFTY","Bank Nifty","India",48000,"₹"],["AAPL","Apple","USA",190,"$"],["NVDA","NVIDIA","USA",900,"$"],["MSFT","Microsoft","USA",410,"$"],["TSLA","Tesla","USA",180,"$"],["GOLD","Gold","Global",2350,"$"],["CRUDE","Crude Oil WTI","Global",78,"$"],["NIKKEI","Nikkei 225","Global",38000,"¥"]];
+const find=s=>U.find(u=>u[0]===s.toUpperCase().trim());
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const cache={};
+function data(sym){if(cache[sym])return cache[sym];const u=find(sym);let h=0;for(const ch of sym)h=h*31+ch.charCodeAt(0);const r=rng(h),N=320,o=[];let p=u[3]*(.8+r()*.2),dr=0;
+for(let i=0;i<N;i++){dr=dr*.97+(r()-.5)*.004;const op=p,c=p*(1+dr+(r()-.5)*.025),hi=Math.max(op,c)*(1+r()*.008),lo=Math.min(op,c)*(1-r()*.008);o.push({o:op,h:hi,l:lo,c,v:Math.round((1+r()*2)*1e6*(i>N-3?1+r()*2:1))});p=c}
+return cache[sym]=o}
+const sma=(a,n)=>a.map((_,i)=>i<n-1?NaN:a.slice(i-n+1,i+1).reduce((x,y)=>x+y,0)/n);
+const ema=(a,n)=>{const k=2/(n+1),o=[];a.forEach((x,i)=>o.push(i?x*k+o[i-1]*(1-k):x));return o};
+function rsi(c,n=14){const o=c.map(()=>NaN);let g=0,l=0;for(let i=1;i<c.length;i++){const d=c[i]-c[i-1];if(i<=n){g+=Math.max(d,0)/n;l+=Math.max(-d,0)/n}else{g=(g*(n-1)+Math.max(d,0))/n;l=(l*(n-1)+Math.max(-d,0))/n}if(i>=n)o[i]=100-100/(1+g/(l||1e-9))}return o}
+const f=(x,d=2)=>isFinite(x)?x.toLocaleString("en-IN",{maximumFractionDigits:d,minimumFractionDigits:d}):"-";
+const pc=x=>`<span class="${x>=0?'up':'dn'}">${x>=0?'+':''}${f(x)}%</span>`;
+function analyse(sym){const d=data(sym),c=d.map(x=>x.c),n=c.length-1,u=find(sym);
+const s20=sma(c,20),s50=sma(c,50),e20=ema(c,20),r=rsi(c),m=ema(c,12).map((x,i)=>x-ema(c,26)[i]),sg=ema(m,9),
+sd=Math.sqrt(c.slice(-20).reduce((a,x)=>a+(x-s20[n])**2,0)/20),bu=s20[n]+2*sd,bl=s20[n]-2*sd,
+atr=d.slice(-14).reduce((a,x)=>a+x.h-x.l,0)/14,sup=Math.min(...d.slice(-30).map(x=>x.l)),res=Math.max(...d.slice(-30).map(x=>x.h));
+let sc=0;const why=[];const t=(b,msg)=>{sc+=b;why.push((b>0?"▲ ":"▼ ")+msg)};
+c[n]>s50[n]?t(1,"कीमत 50-SMA के ऊपर"):t(-1,"कीमत 50-SMA के नीचे");e20[n]>s50[n]?t(1,"EMA20 > SMA50"):t(-1,"EMA20 < SMA50");
+(m[n]>sg[n])?t(1,"MACD सिग्नल के ऊपर"):t(-1,"MACD सिग्नल के नीचे");
+if(r[n]<35)t(1,"RSI कम ("+f(r[n],0)+")");else if(r[n]>65)t(-1,"RSI ज़्यादा ("+f(r[n],0)+")");
+if(c[n]<bl)t(1,"बोलिंजर निचले बैंड के नीचे");if(c[n]>bu)t(-1,"बोलिंजर ऊपरी बैंड के ऊपर");
+const rec=sc>=2?"BUY":sc<=-2?"SELL":"WAIT",dir=rec==="SELL"?-1:1,risk=1.5*atr,en=c[n],sl=en-dir*risk;
+return{u,d,c,n,s20,s50,e20,r:r[n],macd:m[n],sg:sg[n],bu,bl,atr,sup,res,rec,sc,why,en,sl,tg:[1.5,2.5,4].map(k=>en+dir*risk*k),conf:Math.min(85,50+Math.abs(sc)*8)}}
+function chart(a){const d=a.d.slice(-70),W=700,H=300,hi=Math.max(...d.map(x=>x.h)),lo=Math.min(...d.map(x=>x.l)),y=v=>8+(hi-v)/(hi-lo)*(H-16),w=W/d.length;
+let s=`<svg viewBox="0 0 ${W} ${H}">`;[a.sup,a.res].forEach((v,i)=>s+=`<line x1="0" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="${i?'#f2557a':'#2fc9a0'}" stroke-dasharray="5 5" opacity=".6"/><text x="4" y="${y(v)-3}" fill="#8b95a8" font-size="11">${i?'रेज़िस्टेंस':'सपोर्ट'} ${f(v)}</text>`);
+d.forEach((x,i)=>{const cx=i*w+w/2,col=x.c>=x.o?"#2fc9a0":"#f2557a";s+=`<line x1="${cx}" x2="${cx}" y1="${y(x.h)}" y2="${y(x.l)}" stroke="${col}"/><rect x="${cx-w*.32}" y="${y(Math.max(x.o,x.c))}" width="${w*.64}" height="${Math.max(1,Math.abs(y(x.o)-y(x.c)))}" fill="${col}"/>`});
+const sm=a.s20.slice(-70);s+=`<polyline fill="none" stroke="#eba33a" stroke-width="1.6" points="${sm.map((v,i)=>isFinite(v)?`${i*w+w/2},${y(v)}`:"").join(" ")}"/></svg>`;return s}
+/* backtest: walk-forward, one-bar delayed signals, costs */
+function sim(c,sig,a,b){let eq=1,pk=1,dd=0,tr=0,w=0,pos=0,e0=1;for(let t=Math.max(a,2);t<b;t++){const p=sig[t-2]?1:0;if(p!==pos){eq*=1-.0015;if(p)e0=eq;else{tr++;if(eq>e0)w++}pos=p}if(pos)eq*=c[t]/c[t-1];pk=Math.max(pk,eq);dd=Math.max(dd,1-eq/pk)}return{r:(eq-1)*100,tr,w,dd:dd*100}}
+function backtest(sym){const c=data(sym).map(x=>x.c),N=c.length,cut=Math.floor(N*.7),M={},S=n=>M[n]||(M[n]=sma(c,n)),R=rsi(c),all=[];
+for(let fa=5;fa<=30;fa+=1)for(let sl=20;sl<=100;sl+=5)if(fa<sl){const A=S(fa),B=S(sl);all.push({k:"MA Crossover",p:fa+"/"+sl,sig:c.map((_,i)=>A[i]>B[i])})}
+for(let lo=20;lo<=35;lo+=3)for(let hi=60;hi<=80;hi+=4){let st=false;all.push({k:"RSI",p:lo+"/"+hi,sig:c.map((_,i)=>{if(R[i]<lo)st=true;if(R[i]>hi)st=false;return st})})}
+for(let n=10;n<=60;n+=5){let st=false;all.push({k:"Breakout",p:n,sig:c.map((_,i)=>{if(i<n)return false;const mx=Math.max(...c.slice(i-n,i)),mn=Math.min(...c.slice(i-n/2|0,i));if(c[i]>mx)st=true;if(c[i]<mn)st=false;return st})})}
+all.forEach(x=>{x.tr=sim(c,x.sig,0,cut);x.te=sim(c,x.sig,cut,N)});
+const best=[...all].sort((a,b)=>b.tr.r-a.tr.r)[0],worst=[...all].sort((a,b)=>a.te.r-b.te.r)[0];
+return{all,best,worst,cut,N,bh:(c[N-1]/c[cut]-1)*100,trWin:all.filter(x=>x.tr.r>0).length,teWin:all.filter(x=>x.te.r>0).length,now:best.sig[N-1]}}
+/* views */
+const V={};let cur="home";
+V.home=()=>`<h2>डैशबोर्ड</h2><div class="g">${["NIFTY50","BANKNIFTY","AAPL","GOLD","CRUDE","NIKKEI"].map(s=>{const d=data(s),u=find(s),ch=(d[d.length-1].c/d[d.length-2].c-1)*100;return`<div class="c"><div class="k">${u[1]}</div><div class="v">${u[4]}${f(d[d.length-1].c)}</div>${pc(ch)}</div>`}).join("")}</div>
+<div class="c"><b class="ac">प्रोटोटाइप स्थिति</b><p class="note">सभी कीमतें, चार्ट और सिग्नल सिमुलेटेड DEMO DATA हैं, असली बाज़ार नहीं। असली डेटा के लिए बाद में सुरक्षित बैकएंड से Live Price, Historical, News और Gemini API जोड़ी जाएगी। ये कोई निवेश सलाह नहीं है।</p></div>`;
+V.analysis=()=>`<h2>AI स्टॉक एनालिसिस</h2><div class="r"><input id="q" list="sl" placeholder="सिंबल, जैसे RELIANCE" value="RELIANCE"><datalist id="sl">${U.map(u=>`<option value="${u[0]}">`).join("")}</datalist><button class="b" onclick="runA()">विश्लेषण करें</button></div><div id="out"></div>`;
+window.runA=()=>{const s=$("#q").value,u=find(s);if(!u){$("#out").innerHTML=`<div class="c dn">"${s}" डेमो लिस्ट में नहीं है। ऊपर सुझाए गए सिंबल में से चुनें।</div>`;return}
+const a=analyse(u[0]),cu=u[4],ch=(a.c[a.n]/a.c[a.n-1]-1)*100,hist=ST.g("hist",[]);hist.unshift({s:u[0],r:a.rec,p:a.en,t:new Date().toLocaleString("en-IN")});ST.s("hist",hist.slice(0,30));
+$("#out").innerHTML=`<div class="c"><div class="k">${u[1]} · ${u[2]}</div><div class="v">${cu}${f(a.en)} ${pc(ch)}</div><div class="note">पिछला बंद ${cu}${f(a.c[a.n-1])} · वॉल्यूम ${f(a.d[a.n].v,0)}</div></div><div class="c">${chart(a)}<div class="note">पीली लाइन: SMA20 · डैश: सपोर्ट/रेज़िस्टेंस</div></div>
+<div class="c"><div class="sig ${a.rec}">${a.rec}</div> <span class="note">कॉन्फिडेंस ${a.conf}% (डेमो)</span><div class="g" style="margin-top:10px"><div><div class="k">एंट्री</div><div class="v">${f(a.en)}</div></div><div><div class="k">स्टॉप लॉस</div><div class="v dn">${f(a.sl)}</div></div>${a.tg.map((t,i)=>`<div><div class="k">टारगेट ${i+1}</div><div class="v up">${f(t)}</div></div>`).join("")}<div><div class="k">रिस्क:रिवॉर्ड</div><div class="v">1 : 2.5</div></div></div>
+<h3>कारण</h3>${a.why.map(w=>`<div>${w}</div>`).join("")}</div>
+<div class="c"><div class="g"><div><div class="k">RSI(14)</div><div class="v">${f(a.r,1)}</div></div><div><div class="k">MACD</div><div class="v">${f(a.macd)}</div></div><div><div class="k">SMA20 / 50</div><div class="v">${f(a.s20[a.n],1)} / ${f(a.s50[a.n],1)}</div></div><div><div class="k">EMA20</div><div class="v">${f(a.e20[a.n],1)}</div></div><div><div class="k">बोलिंजर</div><div class="v">${f(a.bl,1)}–${f(a.bu,1)}</div></div><div><div class="k">सपोर्ट / रेज़िस्टेंस</div><div class="v">${f(a.sup,1)} / ${f(a.res,1)}</div></div></div></div>`}
+let flt="All";
+V.scanner=()=>{const L=U.filter(u=>flt==="All"||u[2]===flt).map(u=>{const d=data(u[0]),n=d.length-1,av=d.slice(-21,-1).reduce((s,x)=>s+x.v,0)/20;return{u,p:d[n].c,ch:(d[n].c/d[n-1].c-1)*100,v:d[n].v,vs:d[n].v/av}});
+const T=(t,arr,k)=>`<h3>${t}</h3><div class="c w"><table><tr><th>नाम</th><th>सिंबल</th><th>कीमत</th><th>%</th><th>वॉल्यूम</th><th>मार्केट</th></tr>${arr.slice(0,10).map(x=>`<tr><td>${x.u[1]}</td><td>${x.u[0]}</td><td>${x.u[4]}${f(x.p)}</td><td>${pc(x.ch)}</td><td>${k?f(x.vs,1)+"x":f(x.v,0)}</td><td>${x.u[2]}</td></tr>`).join("")}</table></div>`;
+return`<h2>मार्केट स्कैनर</h2><div class="r">${["All","India","USA","Global"].map(m=>`<button class="b ${m===flt?'':'s'}" onclick="flt='${m}';go('scanner')">${m}</button>`).join("")}</div>${T("टॉप गेनर्स",[...L].sort((a,b)=>b.ch-a.ch))}${T("टॉप लूज़र्स",[...L].sort((a,b)=>a.ch-b.ch))}${T("सबसे एक्टिव",[...L].sort((a,b)=>b.v-a.v))}${T("वॉल्यूम शॉकर्स (औसत से गुना)",[...L].sort((a,b)=>b.vs-a.vs),1)}`};
+V.backtest=()=>`<h2>AI बैकटेस्टिंग</h2><div class="r"><input id="bq" list="sl" value="TCS"><datalist id="sl">${U.map(u=>`<option value="${u[0]}">`).join("")}</datalist><button class="b" onclick="runB()">टेस्ट चलाएँ</button></div><div id="bo"></div>`;
+window.runB=()=>{const u=find($("#bq").value);if(!u){$("#bo").innerHTML=`<div class="c dn">सिंबल नहीं मिला।</div>`;return}const b=backtest(u[0]),B=b.best,W=b.worst;
+$("#bo").innerHTML=`<div class="c"><div class="g"><div><div class="k">कुल टेस्ट (अलग पैरामीटर)</div><div class="v">${b.all.length}</div></div><div><div class="k">ट्रेन में मुनाफे वाले</div><div class="v">${b.trWin}</div></div><div><div class="k">आउट-ऑफ-सैंपल में मुनाफे वाले</div><div class="v">${b.teWin}</div></div></div>
+<p class="note">डेटा: डेमो, ${b.N} दिन। पहले 70% पर सबसे अच्छा चुना, बाकी 30% पर परखा। सिग्नल एक बार देरी से लागू, खर्च 0.15% प्रति ट्रेड (ब्रोकरेज, टैक्स, स्लिपेज)।</p></div>
+<div class="c"><h3>ट्रेन में सबसे अच्छी: ${B.k} (${B.p})</h3><div class="g"><div><div class="k">ट्रेन रिटर्न</div><div class="v">${pc(B.tr.r)}</div></div><div><div class="k">आउट-ऑफ-सैंपल रिटर्न</div><div class="v">${pc(B.te.r)}</div></div><div><div class="k">जीत दर (OOS)</div><div class="v">${B.te.tr?f(B.te.w/B.te.tr*100,0)+"%":"-"} (${B.te.tr} ट्रेड)</div></div><div><div class="k">अधिकतम ड्रॉडाउन (OOS)</div><div class="v dn">${f(B.te.dd,1)}%</div></div><div><div class="k">सिर्फ होल्ड (OOS)</div><div class="v">${pc(b.bh)}</div></div></div>
+<h3>सबसे खराब (OOS): ${W.k} (${W.p})</h3>${pc(W.te.r)}
+<h3>अभी का फैसला</h3><span class="sig ${b.now?'BUY':'WAIT'}">${b.now?'BUY':'WAIT'}</span> <span class="note">चुनी रणनीति अभी ${b.now?'लॉन्ग':'बाहर'} है</span></div>
+<div class="c note">ध्यान दें: बहुत सारे पैरामीटर आज़माने पर "सबसे अच्छा" अक्सर संयोग होता है। ट्रेन और OOS रिटर्न का फर्क यही दिखाता है। भविष्य के मुनाफे की कोई गारंटी नहीं।</div>`};
+V.risk=()=>`<h2>रिस्क कैलकुलेटर</h2><div class="c"><div class="r"><div><div class="k">पूंजी</div><input id="rc" type="number" value="100000"></div><div><div class="k">रिस्क %</div><input id="rr" type="number" value="1" step=".1"></div></div><div class="r"><div><div class="k">एंट्री</div><input id="re" type="number" value="1500"></div><div><div class="k">स्टॉप लॉस</div><input id="rs" type="number" value="1470"></div><div><div class="k">टारगेट</div><input id="rt" type="number" value="1575"></div></div><button class="b" onclick="calcR()">गणना करें</button><div id="ro" style="margin-top:12px"></div></div>`;
+window.calcR=()=>{const g=i=>+$("#"+i).value,cap=g("rc"),mx=cap*g("rr")/100,per=Math.abs(g("re")-g("rs"));if(!per){$("#ro").innerHTML=`<span class="dn">एंट्री और स्टॉप लॉस अलग रखें।</span>`;return}const q=Math.floor(mx/per),rw=Math.abs(g("rt")-g("re"));
+$("#ro").innerHTML=`<div class="g"><div><div class="k">शेयर</div><div class="v">${q}</div></div><div><div class="k">अधिकतम नुकसान</div><div class="v dn">${f(q*per)}</div></div><div><div class="k">संभावित मुनाफा</div><div class="v up">${f(q*rw)}</div></div><div><div class="k">रिस्क:रिवॉर्ड</div><div class="v">1 : ${f(rw/per,1)}</div></div><div><div class="k">निवेश राशि</div><div class="v">${f(q*g("re"),0)}</div></div></div>`};
+V.journal=()=>{const J=ST.g("jr",[]),tot=J.reduce((s,x)=>s+x.pl,0),w=J.filter(x=>x.pl>0).length;return`<h2>ट्रेडिंग जर्नल</h2><div class="c"><div class="r"><input id="js" placeholder="स्टॉक"><input id="jen" type="number" placeholder="एंट्री"><input id="jx" type="number" placeholder="एग्ज़िट"><input id="jq" type="number" placeholder="मात्रा"></div><div class="r"><input id="jst" placeholder="रणनीति"><input id="jn" placeholder="नोट"></div><button class="b" onclick="addJ()">ट्रेड सेव करें</button></div>
+<div class="c"><div class="g"><div><div class="k">कुल P/L</div><div class="v ${tot>=0?'up':'dn'}">${f(tot)}</div></div><div><div class="k">ट्रेड</div><div class="v">${J.length}</div></div><div><div class="k">जीत दर</div><div class="v">${J.length?f(w/J.length*100,0)+"%":"-"}</div></div></div></div>
+<div class="c w"><table><tr><th>स्टॉक</th><th>एंट्री→एग्ज़िट</th><th>P/L</th><th>रणनीति</th><th>तारीख</th><th></th></tr>${J.map((x,i)=>`<tr><td>${x.s}</td><td>${x.en}→${x.x}</td><td class="${x.pl>=0?'up':'dn'}">${f(x.pl)}</td><td>${x.st||"-"}</td><td>${x.d}</td><td><button class="b s" onclick="delK('jr',${i},'journal')">हटाएँ</button></td></tr>`).join("")||`<tr><td colspan="6" class="note">अभी कोई ट्रेड नहीं। ऊपर पहला ट्रेड जोड़ें।</td></tr>`}</table></div>`};
+window.addJ=()=>{const g=i=>$("#"+i).value,en=+g("jen"),x=+g("jx"),q=+g("jq");if(!g("js")||!en||!x||!q)return alert("स्टॉक, एंट्री, एग्ज़िट और मात्रा भरें");const J=ST.g("jr",[]);J.unshift({s:g("js").toUpperCase(),en,x,q,pl:(x-en)*q,st:g("jst"),n:g("jn"),d:new Date().toLocaleDateString("en-IN")});ST.s("jr",J);go("journal")};
+window.delK=(k,i,v)=>{const L=ST.g(k,[]);L.splice(i,1);ST.s(k,L);go(v)};
+V.portfolio=()=>{const P=ST.g("pf",[]);let inv=0,val=0;const rows=P.map((x,i)=>{const u=find(x.s),p=u?data(u[0]).slice(-1)[0].c:x.a,iv=x.q*x.a,cv=x.q*p;inv+=iv;val+=cv;return`<tr><td>${x.s}</td><td>${x.q}</td><td>${f(x.a)}</td><td>${f(p)}</td><td>${f(iv,0)}</td><td>${f(cv,0)}</td><td class="${cv>=iv?'up':'dn'}">${f(cv-iv,0)}</td><td><button class="b s" onclick="delK('pf',${i},'portfolio')">हटाएँ</button></td></tr>`}).join("");
+return`<h2>पोर्टफोलियो ट्रैकर</h2><div class="c"><div class="r"><input id="ps" list="sl" placeholder="सिंबल"><datalist id="sl">${U.map(u=>`<option value="${u[0]}">`).join("")}</datalist><input id="pq" type="number" placeholder="मात्रा"><input id="pa" type="number" placeholder="औसत खरीद भाव"></div><button class="b" onclick="addP()">होल्डिंग जोड़ें</button></div><div class="c"><div class="g"><div><div class="k">कुल निवेश</div><div class="v">${f(inv,0)}</div></div><div><div class="k">मौजूदा मूल्य (डेमो भाव)</div><div class="v">${f(val,0)}</div></div><div><div class="k">P/L</div><div class="v ${val>=inv?'up':'dn'}">${f(val-inv,0)}</div></div></div></div><div class="c w"><table><tr><th>स्टॉक</th><th>मात्रा</th><th>औसत</th><th>भाव</th><th>निवेश</th><th>मूल्य</th><th>P/L</th><th></th></tr>${rows||`<tr><td colspan="8" class="note">कोई होल्डिंग नहीं। ऊपर से जोड़ें।</td></tr>`}</table></div>`};
+window.addP=()=>{const s=$("#ps").value.toUpperCase(),q=+$("#pq").value,a=+$("#pa").value;if(!s||!q||!a)return alert("सिंबल, मात्रा और औसत भाव भरें");const P=ST.g("pf",[]);P.push({s,q,a});ST.s("pf",P);go("portfolio")};
+V.paper=()=>{const A=ST.g("pp",{bal:1000000,pos:[],cl:[]});let op=0;const rows=A.pos.map((x,i)=>{const p=data(x.s).slice(-1)[0].c,pl=(p-x.e)*x.q*x.d;op+=pl;return`<tr><td>${x.d>0?"BUY":"SELL"} ${x.s}</td><td>${x.q}</td><td>${f(x.e)}</td><td>${f(p)}</td><td class="${pl>=0?'up':'dn'}">${f(pl,0)}</td><td><button class="b s" onclick="clsP(${i})">बंद करें</button></td></tr>`}).join(""),cp=A.cl.reduce((s,x)=>s+x,0);
+return`<h2>पेपर ट्रेडिंग</h2><div class="note" style="margin-bottom:8px">वर्चुअल पैसा। असली ट्रेड कभी नहीं होता।</div><div class="c"><div class="r"><select id="xs">${U.map(u=>`<option>${u[0]}</option>`).join("")}</select><input id="xq" type="number" placeholder="मात्रा" value="10"></div><button class="b" onclick="payP(1)">वर्चुअल BUY</button> <button class="b s" onclick="payP(-1)">वर्चुअल SELL</button></div><div class="c"><div class="g"><div><div class="k">वर्चुअल बैलेंस</div><div class="v">${f(A.bal,0)}</div></div><div><div class="k">खुला P/L</div><div class="v ${op>=0?'up':'dn'}">${f(op,0)}</div></div><div><div class="k">बंद ट्रेड / P/L</div><div class="v">${A.cl.length} / ${f(cp,0)}</div></div></div></div><div class="c w"><table><tr><th>पोज़िशन</th><th>मात्रा</th><th>एंट्री</th><th>अभी</th><th>P/L</th><th></th></tr>${rows||`<tr><td colspan="6" class="note">कोई खुली पोज़िशन नहीं।</td></tr>`}</table></div>`};
+window.payP=d=>{const A=ST.g("pp",{bal:1000000,pos:[],cl:[]}),s=$("#xs").value,q=+$("#xq").value;if(!q)return;A.pos.push({s,q,d,e:data(s).slice(-1)[0].c});ST.s("pp",A);go("paper")};
+window.clsP=i=>{const A=ST.g("pp",{bal:1000000,pos:[],cl:[]}),x=A.pos.splice(i,1)[0],pl=(data(x.s).slice(-1)[0].c-x.e)*x.q*x.d;A.bal+=pl;A.cl.push(pl);ST.s("pp",A);go("paper")};
+V.alerts=()=>{const L=ST.g("al",[]);return`<h2>प्राइस अलर्ट</h2><div class="c"><div class="r"><select id="as">${U.map(u=>`<option>${u[0]}</option>`).join("")}</select><select id="ac"><option value="a">भाव इससे ऊपर</option><option value="b">भाव इससे नीचे</option></select><input id="av" type="number" placeholder="भाव"></div><button class="b" onclick="addAl()">अलर्ट जोड़ें</button><p class="note">अलर्ट अभी डेमो भाव से जाँचे जाते हैं। असली नोटिफिकेशन बैकएंड जुड़ने पर आएँगे।</p></div><div class="c">${L.map((x,i)=>{const p=data(x.s).slice(-1)[0].c,hit=x.c==="a"?p>=x.v:p<=x.v;return`<div class="r" style="align-items:center"><span>${x.s} ${x.c==="a"?"≥":"≤"} ${x.v} · डेमो भाव ${f(p)} ${hit?'<b class="up">ट्रिगर</b>':'<span class="note">इंतज़ार</span>'}</span><button class="b s" style="flex:0" onclick="delK('al',${i},'alerts')">हटाएँ</button></div>`}).join("")||`<span class="note">कोई अलर्ट नहीं। ऊपर से पहला अलर्ट बनाएँ।</span>`}</div>`};
+window.addAl=()=>{const v=+$("#av").value;if(!v)return;const L=ST.g("al",[]);L.push({s:$("#as").value,c:$("#ac").value,v});ST.s("al",L);go("alerts")};
+V.news=()=>`<h2>AI न्यूज़</h2><div class="c"><b class="ac">न्यूज़ API जुड़ी नहीं है</b><p class="note">नकली खबरें कभी नहीं दिखाई जाएँगी। असली फाइनेंशियल न्यूज़ API और मूल स्रोत लिंक सुरक्षित बैकएंड जुड़ने के बाद यहाँ आएँगे, सेंटिमेंट के साथ।</p></div>`;
+V.assist=()=>`<h2>AI ट्रेडिंग असिस्टेंट</h2><div class="c"><p class="note">Gemini जुड़ा है, पर बाज़ार का डेटा अभी भी DEMO है। पूछिए, जैसे "Analyse TCS" या "compare AAPL NVDA"।</p><div class="r"><input id="as1" placeholder="सवाल लिखें"><button class="b" onclick="ask()">पूछें</button></div><div id="ao"></div></div>`;
+window.ask=()=>{const t=$("#as1").value.toUpperCase(),hit=U.filter(u=>t.includes(u[0]));$("#ao").innerHTML=hit.length?hit.map(u=>{const a=analyse(u[0]);return`<div class="c"><b>${u[1]}</b>: ${a.rec}, एंट्री ${f(a.en)}, स्टॉप ${f(a.sl)}, सपोर्ट ${f(a.sup)}, रेज़िस्टेंस ${f(a.res)} <span class="note">(डेमो)</span></div>`}).join(""):`<span class="dn">सवाल में कोई जाना-पहचाना सिंबल नहीं मिला, जैसे ${U.slice(0,4).map(u=>u[0]).join(", ")}।</span>`};
+V.history=()=>{const H=ST.g("hist",[]);return`<h2>एनालिसिस हिस्ट्री</h2><div class="c w"><table><tr><th>स्टॉक</th><th>सिग्नल</th><th>भाव</th><th>समय</th></tr>${H.map(x=>`<tr><td>${x.s}</td><td>${x.r}</td><td>${f(x.p)}</td><td>${x.t}</td></tr>`).join("")||`<tr><td colspan="4" class="note">अभी कोई रिपोर्ट नहीं। AI स्टॉक एनालिसिस चलाएँ।</td></tr>`}</table></div>`};
+V.more=()=>`<h2>आगे आने वाले पेज</h2><div class="c"><p class="note">इस पहले वर्ज़न में ये अभी नहीं बने हैं: स्ट्रैटेजी बिल्डर, इकोनॉमिक कैलेंडर, सेटिंग्स, इंटरैक्टिव इंडिकेटर चार्ट, ऑप्शंस और असली API इंटीग्रेशन।</p></div>`;
+const WORKER="https://dawn-firefly-c2d1.vikassingh16245.workers.dev";
+window.ask=async()=>{const q=$("#as1").value.trim();if(!q)return;const o=$("#ao");o.innerHTML='<span class="note">Gemini सोच रहा है...</span>';
+const hit=U.filter(u=>q.toUpperCase().includes(u[0])).map(u=>{const a=analyse(u[0]);return u[0]+": "+a.rec+", entry "+f(a.en)+", SL "+f(a.sl)+", support "+f(a.sup)+", resistance "+f(a.res)}).join("\n");
+const prompt="आप एक ट्रेडिंग असिस्टेंट हैं। नीचे का डेटा सिमुलेटेड DEMO है, असली नहीं, यह जवाब में साफ बताइए। निवेश सलाह या गारंटी न दें। हिंदी में छोटा जवाब दें.\nडेमो डेटा:\n"+(hit||"कोई नहीं")+"\nसवाल: "+q;
+try{const r=await fetch(WORKER,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt})});const j=await r.json();o.innerHTML='<div class="c" style="white-space:pre-wrap">'+String(j.text||"").replace(/</g,"&lt;")+'</div><div class="note">Gemini · डेटा: DEMO</div>'}catch(e){o.innerHTML='<span class="dn">Gemini से जुड़ नहीं पाया। इस पेज को अपनी GitHub Pages साइट से खोलिए, क्लाउड प्रीव्यू से नहीं।</span>'}};
+const NAV=[["home","होम"],["analysis","एनालिसिस"],["scanner","स्कैनर"],["backtest","बैकटेस्ट"],["risk","रिस्क"],["journal","जर्नल"],["portfolio","पोर्टफोलियो"],["paper","पेपर ट्रेड"],["alerts","अलर्ट"],["news","न्यूज़"],["assist","असिस्टेंट"],["history","हिस्ट्री"],["more","और"]];
+window.go=p=>{cur=p;$("#nav").innerHTML=NAV.map(n=>`<button class="${n[0]===p?'on':''}" onclick="go('${n[0]}')">${n[1]}</button>`).join("");$("#m").innerHTML=`<section>${V[p]()}</section>`;window.scrollTo(0,0)};
+$("#ft").textContent="डेटा स्रोत: सिमुलेटेड DEMO · स्थिति: लाइव नहीं · अपडेट: "+new Date().toLocaleString("en-IN")+" · कोई निवेश सलाह नहीं";
+go("home");
+</script></body></html>
